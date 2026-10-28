@@ -1,0 +1,7 @@
+path: /tmp/claude-0/-home-claude/98403492-be8e-54bc-88d3-1686c06ee263/scratchpad/edge/repo/data
+train: images/train
+val: images/val
+test: images/test
+names:
+  0: sct013
+  1: robot
