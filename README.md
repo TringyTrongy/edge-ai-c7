@@ -12,11 +12,6 @@ A YOLO26n detector for two parts I designed in Fusion 360, with ONNX export, an 
 | M2: ONNX export, mAP before/after, CPU benchmark | M2: TFLite INT8 on the device, CPU vs accelerator table |
 | | M3 to M5 |
 
-How the data and numbers were produced, so they are read correctly:
-
-- The images are **rendered from my CAD models** (not camera photos), with the box labels computed from each render.
-- Speed was measured on a **PC-class CPU, 2 threads**, not on an edge device.
-
 ## Objects
 
 | Class | CAD source (`cad/`) | Part |
@@ -66,7 +61,7 @@ mAP is unchanged within 0.002 after export.
 |---|---|---|---|
 | 13.5 ms | 19.2 ms | 14.3 ms | 74 |
 
-Raw numbers: `results/results.json`.
+Measured on a PC-class CPU, not on the edge device. Raw numbers: `results/results.json`.
 
 ## Reproduce
 
