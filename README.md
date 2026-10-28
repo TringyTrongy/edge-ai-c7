@@ -46,17 +46,36 @@ Confusion matrix: `runs/test_pytorch/confusion_matrix.png`. The validation split
 - Misses (`wrong_07` to `wrong_10`): a small SCT-013 almost fully hidden behind the chassis (`wrong_07`), and overlapping pairs where the predicted box extends over a neighbour (IoU 0.45 to 0.49, just under the 0.5 cut-off) or an object is hidden (`wrong_09`, IoU 0).
 - **A cause I found in my own data:** the renderer pastes objects one after another and takes each box from the object's full mask before later objects are pasted on top. So an object that ends up mostly or fully hidden still has a full box. Some of the "misses" are therefore label noise, not detector errors. I did not fix this in v1.
 
+## M2 Optimize: ONNX export and accuracy check
+
+`scripts/evaluate.py` exports `best.pt` to ONNX (`runs/synthetic_v1/weights/best.onnx`, opset 17, fixed 416x416, simplified) and scores both on the same 80 test images:
+
+| | mAP50 | mAP50-95 | Precision | Recall | File size |
+|---|---|---|---|---|---|
+| PyTorch (`best.pt`) | 0.9565 | 0.8703 | 0.994 | 0.886 | 5.41 MB |
+| ONNX (`best.onnx`) | 0.9577 | 0.8714 | 0.987 | 0.885 | 9.76 MB |
+
+mAP is unchanged within 0.002 after export. ONNX is larger because it stores weights as float32 with the graph.
+
+**Benchmark** (ONNX Runtime, CPUExecutionProvider, 2 threads, batch 1, 416x416, 20 warm-up runs then 100 timed runs on test images, preprocessing excluded):
+
+| median | p95 | mean | FPS from median |
+|---|---|---|---|
+| 13.5 ms | 19.2 ms | 14.3 ms | 74 |
+
+This is a **cloud container CPU, not a Raspberry Pi or any edge device**. Expect the real device to be slower. Not done for M2: TFLite INT8 conversion and CPU-vs-accelerator comparison.
+
 ## Reproduce
 
 ```sh
 pip install torch torchvision ultralytics onnx onnxslim onnxruntime pyrender trimesh opencv-python
 python scripts/render_dataset.py 800     # data/
 python scripts/train.py 30               # runs/synthetic_v1/
-python scripts/evaluate.py               # results/, wrong detections
+python scripts/evaluate.py               # results/, ONNX export, benchmark
 ```
 
 `weights/yolo26n.pt` is the COCO starting checkpoint.
 
 ## Not done
 
-M1: camera and first commit from the device, live OpenCV overlay on the device, baseline speed (FPS, CPU load, temperature) on the device. M2 to M5: not started in this commit.
+M1: camera and first commit from the device, live OpenCV overlay on the device, baseline speed (FPS, CPU load, temperature) on the device. M2: TFLite INT8 on the device, CPU vs accelerator table, own target and trade-off written before training. M3 to M5: everything.

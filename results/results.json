@@ -1,0 +1,132 @@
+{
+  "pytorch_test": {
+    "precision": 0.9943928753241886,
+    "recall": 0.8859104417948338,
+    "mAP50": 0.9564996369333406,
+    "mAP50_95": 0.8702773725167656,
+    "per_class": {
+      "sct013": {
+        "AP50": 0.9637913188011316,
+        "AP50_95": 0.8842555745423051,
+        "P": 1.0,
+        "R": 0.9051542169230009
+      },
+      "robot": {
+        "AP50": 0.9492079550655497,
+        "AP50_95": 0.8562991704912258,
+        "P": 0.9887857506483771,
+        "R": 0.8666666666666667
+      }
+    }
+  },
+  "onnx_path": "runs/synthetic_v1/weights/best.onnx",
+  "onnx_size_mb": 9.76,
+  "pt_size_mb": 5.41,
+  "onnx_test": {
+    "precision": 0.9868249719866249,
+    "recall": 0.8849945181182648,
+    "mAP50": 0.9576835015204581,
+    "mAP50_95": 0.8714476624365851,
+    "per_class": {
+      "sct013": {
+        "AP50": 0.9651287175543304,
+        "AP50_95": 0.8814541748102833,
+        "P": 1.0,
+        "R": 0.8866557029031962
+      },
+      "robot": {
+        "AP50": 0.9502382854865857,
+        "AP50_95": 0.8614411500628872,
+        "P": 0.9736499439732498,
+        "R": 0.8833333333333333
+      }
+    }
+  },
+  "benchmark_onnx_cpu": {
+    "warmup_runs": 20,
+    "timed_runs": 100,
+    "batch": 1,
+    "imgsz": 416,
+    "threads": 2,
+    "median_ms": 13.513853000176823,
+    "p95_ms": 19.153250800104615,
+    "mean_ms": 14.264137260011012,
+    "fps_from_median": 73.99814101773309,
+    "host": "Linux-6.18.44-fc-v180-x86_64-with-glibc2.39",
+    "provider": "CPUExecutionProvider",
+    "note": "inference only (preprocess excluded from timing), container CPU, NOT a Raspberry Pi"
+  },
+  "wrong_detection_counts": {
+    "miss": 12,
+    "wrong_class": 2,
+    "false_positive": 4
+  },
+  "wrong_detections_listed": [
+    {
+      "file": "img_0428.jpg",
+      "kind": "wrong_class",
+      "cls": "sct013",
+      "pred_cls": "robot",
+      "iou": 0.73
+    },
+    {
+      "file": "img_0437.jpg",
+      "kind": "wrong_class",
+      "cls": "sct013",
+      "pred_cls": "robot",
+      "iou": 0.86
+    },
+    {
+      "file": "img_0228.jpg",
+      "kind": "false_positive",
+      "cls": "robot",
+      "conf": 0.59
+    },
+    {
+      "file": "img_0050.jpg",
+      "kind": "false_positive",
+      "cls": "robot",
+      "conf": 0.55
+    },
+    {
+      "file": "img_0228.jpg",
+      "kind": "false_positive",
+      "cls": "robot",
+      "conf": 0.47
+    },
+    {
+      "file": "img_0210.jpg",
+      "kind": "false_positive",
+      "cls": "sct013",
+      "conf": 0.33
+    },
+    {
+      "file": "img_0049.jpg",
+      "kind": "miss",
+      "cls": "sct013",
+      "iou": 0.2,
+      "area": 0.06
+    },
+    {
+      "file": "img_0050.jpg",
+      "kind": "miss",
+      "cls": "robot",
+      "iou": 0.49,
+      "area": 0.153
+    },
+    {
+      "file": "img_0120.jpg",
+      "kind": "miss",
+      "cls": "sct013",
+      "iou": 0,
+      "area": 0.297
+    },
+    {
+      "file": "img_0126.jpg",
+      "kind": "miss",
+      "cls": "robot",
+      "iou": 0.45,
+      "area": 0.094
+    }
+  ]
+}
