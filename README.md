@@ -9,8 +9,12 @@ A YOLO26n detector for two parts I designed in Fusion 360, with ONNX export, an 
 | Done in this repository | Not done yet |
 |---|---|
 | M1: dataset, 70/20/10 split, training, test metrics, wrong-detection analysis | M1: camera/device commit, live overlay, speed on the device |
-| M2: ONNX export, mAP before/after, CPU benchmark | M2: TFLite INT8 on the device, CPU vs accelerator table |
-| | M3 to M5 |
+| M2: ONNX export, mAP before/after, CPU benchmark | M2: TFLite INT8 on the device, accelerator figures |
+| M3: decision rule, debounce with tests, two-stream pipeline, latency (PC, simulated actuator) | M3: relay/LED on this model, Docker run on a device |
+| M4: false-alarm count (PC); MQTT, topics, threat model, PLC link as written designs | M4: MPU6050 data, broker run, PLC, OTA and rollback |
+| M5: headline metric (PC) | M5: rig, 20-part pass/fail, full chain on the device, live demo |
+
+The full task-by-task list, with the state of each item, is in `docs/C7_TASK_MAP.md`. The Raspberry Pi work (a different object) is in the Vizion repository.
 
 ## Objects
 
@@ -78,6 +82,11 @@ python scripts/evaluate.py               # results/, ONNX export, benchmark
 cad/        Fusion 360 files and STL exports
 data/       images, labels, data.yaml, manifest.json
 scripts/    render_dataset.py, preview.py, train.py, evaluate.py
+edge/       onnx_detector.py (ONNX Runtime, NMS)
+m3/         decide.py, test_decide.py, pipeline.py, latency.py, Dockerfile, docker-compose.yml
+m4/         false_alarms.py, mosquitto.conf, mqtt_publish.py, mqtt_check.py
+m5/         headline_metric.py
+docs/       C7_TASK_MAP.md, M2_target_and_stack.md, M3_decision_rules.md, M4_*.md
 runs/       training and test outputs, weights (best.pt, best.onnx)
 results/    results.json, dataset preview, wrong detections
 weights/    COCO starting checkpoint
