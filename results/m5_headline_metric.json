@@ -1,0 +1,12 @@
+{
+  "images": 80,
+  "correct": 78,
+  "accuracy": 0.975,
+  "confusion": {
+    "present_detected": 40,
+    "present_missed": 2,
+    "absent_false_alarm": 0,
+    "absent_clear": 38
+  },
+  "note": "per-image sct013 presence on the synthetic test split, PC CPU; not a physical test of 20 parts"
+}
