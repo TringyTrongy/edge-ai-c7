@@ -1,0 +1,9 @@
+# Cold-boot start: `docker compose up -d` at boot (restart policy brings it back after a crash or power cut).
+services:
+  vision:
+    build: { context: .., dockerfile: m3/Dockerfile }
+    restart: unless-stopped
+    devices:
+      - /dev/video0:/dev/video0     # camera (needs the capture code swapped from folder to camera)
+    volumes:
+      - ../results:/app/results

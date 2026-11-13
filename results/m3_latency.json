@@ -1,0 +1,15 @@
+{
+  "events": 30,
+  "debounce_frames": 3,
+  "per_frame_ms_median": 19.0,
+  "frame_to_actuator_ms": {
+    "median": 19.1,
+    "p95": 23.4,
+    "max": 24.4
+  },
+  "first_frame_to_actuator_ms": {
+    "median": 57.2,
+    "p95": 69.7
+  },
+  "note": "PC CPU, ONNX Runtime 2 threads, includes JPEG read + resize + inference + NMS + debounce; simulated actuator, not GPIO"
+}
